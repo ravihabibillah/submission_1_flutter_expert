@@ -2,6 +2,7 @@ import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
+import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,9 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
     Future.microtask(() =>
         Provider.of<WatchlistMovieNotifier>(context, listen: false)
             .fetchWatchlistMovies());
+    Future.microtask(() =>
+        Provider.of<WatchlistMovieNotifier>(context, listen: false)
+            .fetchWatchlistTv());
   }
 
   @override
@@ -48,12 +52,42 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 child: CircularProgressIndicator(),
               );
             } else if (data.watchlistState == RequestState.Loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final movie = data.watchlistMovies[index];
-                  return MovieCard(movie);
-                },
-                itemCount: data.watchlistMovies.length,
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'Movies',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        final movie = data.watchlistMovies[index];
+                        return MovieCard(movie);
+                      },
+                      itemCount: data.watchlistMovies.length,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'Tv Series',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        final tv = data.watchlistTv[index];
+                        return TvCard(tv);
+                      },
+                      itemCount: data.watchlistTv.length,
+                    ),
+                  ),
+                ],
               );
             } else {
               return Center(

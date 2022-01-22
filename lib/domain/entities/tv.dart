@@ -39,5 +39,19 @@ class Tv extends Equatable {
   String? originalName;
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [
+        posterPath,
+        popularity,
+        id,
+        backdropPath,
+        voteAverage,
+        overview,
+        // required this.firstAirDate,
+        originCountry,
+        genreIds,
+        originalLanguage,
+        voteCount,
+        name,
+        originalName,
+      ];
 }

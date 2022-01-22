@@ -7,18 +7,21 @@ class DbTable extends Equatable {
   final String? title;
   final String? posterPath;
   final String? overview;
+  final String? type;
 
   DbTable({
     required this.id,
     required this.title,
     required this.posterPath,
     required this.overview,
+    required this.type,
   });
 
   factory DbTable.fromEntity(MovieDetail movie) => DbTable(
         id: movie.id,
         title: movie.title,
         posterPath: movie.posterPath,
+        type: 'movie',
         overview: movie.overview,
       );
 
@@ -27,11 +30,13 @@ class DbTable extends Equatable {
         title: map['title'],
         posterPath: map['posterPath'],
         overview: map['overview'],
+        type: map['type'],
       );
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
+        'type': type,
         'posterPath': posterPath,
         'overview': overview,
       };

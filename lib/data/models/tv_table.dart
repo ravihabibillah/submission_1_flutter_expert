@@ -7,33 +7,36 @@ class TvTable extends Equatable {
   final String? name;
   final String? posterPath;
   final String? overview;
+  String? type;
 
   TvTable({
     required this.id,
     required this.name,
     required this.posterPath,
     required this.overview,
+    required this.type,
   });
 
   factory TvTable.fromEntity(TvDetail movie) => TvTable(
-        id: movie.id,
-        name: movie.name,
-        posterPath: movie.posterPath,
-        overview: movie.overview,
-      );
+      id: movie.id,
+      name: movie.name,
+      posterPath: movie.posterPath,
+      overview: movie.overview,
+      type: 'tv');
 
   factory TvTable.fromMap(Map<String, dynamic> map) => TvTable(
-        id: map['id'],
-        name: map['title'],
-        posterPath: map['posterPath'],
-        overview: map['overview'],
-      );
+      id: map['id'],
+      name: map['title'],
+      posterPath: map['posterPath'],
+      overview: map['overview'],
+      type: map['type']);
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': name,
         'posterPath': posterPath,
         'overview': overview,
+        'type': type,
       };
 
   Tv toEntity() => Tv.watchlist(

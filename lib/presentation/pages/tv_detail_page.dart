@@ -27,8 +27,8 @@ class _TvDetailPageState extends State<TvDetailPage> {
     Future.microtask(() {
       Provider.of<TvDetailNotifier>(context, listen: false)
           .fetchTvDetail(widget.id);
-      // Provider.of<TvDetailNotifier>(context, listen: false)
-      //     .loadWatchlistStatus(widget.id);
+      Provider.of<TvDetailNotifier>(context, listen: false)
+          .loadWatchlistStatus(widget.id);
     });
   }
 
@@ -47,7 +47,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
               child: DetailContent(
                 tv,
                 provider.tvRecommendations,
-                // provider.isAddedToWatchlist,
+                provider.isAddedToWatchlist,
               ),
             );
           } else {
@@ -62,12 +62,12 @@ class _TvDetailPageState extends State<TvDetailPage> {
 class DetailContent extends StatelessWidget {
   final TvDetail tv;
   final List<Tv> recommendations;
-  // final bool isAddedWatchlist;
+  final bool isAddedWatchlist;
 
   DetailContent(
     this.tv,
     this.recommendations,
-    // this.isAddedWatchlist,
+    this.isAddedWatchlist,
   );
 
   @override
@@ -110,53 +110,51 @@ class DetailContent extends StatelessWidget {
                               tv.name,
                               style: kHeading5,
                             ),
-                            // ElevatedButton(
-                            //   onPressed: () async {
-                            //     if (!isAddedWatchlist) {
-                            //       await Provider.of<MovieDetailNotifier>(
-                            //               context,
-                            //               listen: false)
-                            //           .addWatchlist(movie);
-                            //     } else {
-                            //       await Provider.of<MovieDetailNotifier>(
-                            //               context,
-                            //               listen: false)
-                            //           .removeFromWatchlist(movie);
-                            //     }
+                            ElevatedButton(
+                              onPressed: () async {
+                                if (!isAddedWatchlist) {
+                                  await Provider.of<TvDetailNotifier>(context,
+                                          listen: false)
+                                      .addWatchlist(tv);
+                                } else {
+                                  await Provider.of<TvDetailNotifier>(context,
+                                          listen: false)
+                                      .removeFromWatchlist(tv);
+                                }
 
-                            //     final message =
-                            //         Provider.of<MovieDetailNotifier>(context,
-                            //                 listen: false)
-                            //             .watchlistMessage;
+                                final message = Provider.of<TvDetailNotifier>(
+                                        context,
+                                        listen: false)
+                                    .watchlistMessage;
 
-                            //     if (message ==
-                            //             MovieDetailNotifier
-                            //                 .watchlistAddSuccessMessage ||
-                            //         message ==
-                            //             MovieDetailNotifier
-                            //                 .watchlistRemoveSuccessMessage) {
-                            //       ScaffoldMessenger.of(context).showSnackBar(
-                            //           SnackBar(content: Text(message)));
-                            //     } else {
-                            //       showDialog(
-                            //           context: context,
-                            //           builder: (context) {
-                            //             return AlertDialog(
-                            //               content: Text(message),
-                            //             );
-                            //           });
-                            //     }
-                            //   },
-                            //   child: Row(
-                            //     mainAxisSize: MainAxisSize.min,
-                            //     children: [
-                            //       isAddedWatchlist
-                            //           ? Icon(Icons.check)
-                            //           : Icon(Icons.add),
-                            //       Text('Watchlist'),
-                            //     ],
-                            //   ),
-                            // ),
+                                if (message ==
+                                        TvDetailNotifier
+                                            .watchlistAddSuccessMessage ||
+                                    message ==
+                                        TvDetailNotifier
+                                            .watchlistRemoveSuccessMessage) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(message)));
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: Text(message),
+                                        );
+                                      });
+                                }
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  isAddedWatchlist
+                                      ? Icon(Icons.check)
+                                      : Icon(Icons.add),
+                                  Text('Watchlist'),
+                                ],
+                              ),
+                            ),
                             Text(
                               _showGenres(tv.genres),
                             ),

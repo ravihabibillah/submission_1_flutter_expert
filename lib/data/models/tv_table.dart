@@ -7,7 +7,7 @@ class TvTable extends Equatable {
   final String? name;
   final String? posterPath;
   final String? overview;
-  String? type;
+  final String? type;
 
   TvTable({
     required this.id,

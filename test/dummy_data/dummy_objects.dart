@@ -47,7 +47,7 @@ final testWatchlistMovie = Movie.watchlist(
   overview: 'overview',
 );
 
-final testMovieTable = DbTable(
+final testMovieTable = MovieTable(
   id: 1,
   title: 'title',
   posterPath: 'posterPath',
@@ -60,6 +60,14 @@ final testMovieMap = {
   'overview': 'overview',
   'posterPath': 'posterPath',
   'title': 'title',
+  'type': 'type'
+};
+final testTvMap = {
+  'id': 1,
+  'title': 'name',
+  'overview': 'overview',
+  'posterPath': 'posterPath',
+  'type': 'type'
 };
 
 // Data Tv Series

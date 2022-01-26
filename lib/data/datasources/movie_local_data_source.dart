@@ -6,12 +6,12 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class MovieLocalDataSource {
-  Future<String> insertWatchlist(DbTable movie);
-  Future<String> removeWatchlist(DbTable movie);
+  Future<String> insertWatchlist(MovieTable movie);
+  Future<String> removeWatchlist(MovieTable movie);
   Future<String> insertWatchlistTv(TvTable tv);
   Future<String> removeWatchlistTv(TvTable tv);
-  Future<DbTable?> getById(int id);
-  Future<List<DbTable>> getWatchlist();
+  Future<MovieTable?> getById(int id);
+  Future<List<MovieTable>> getWatchlist();
   Future<List<TvTable>> getTvWatchlist();
 }
 
@@ -21,7 +21,7 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   MovieLocalDataSourceImpl({required this.databaseHelper});
 
   @override
-  Future<String> insertWatchlist(DbTable movie) async {
+  Future<String> insertWatchlist(MovieTable movie) async {
     try {
       await databaseHelper.insertWatchlist(movie);
       return 'Added to Watchlist';
@@ -31,7 +31,7 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   }
 
   @override
-  Future<String> removeWatchlist(DbTable movie) async {
+  Future<String> removeWatchlist(MovieTable movie) async {
     try {
       await databaseHelper.removeWatchlist(movie);
       return 'Removed from Watchlist';
@@ -61,19 +61,19 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   }
 
   @override
-  Future<DbTable?> getById(int id) async {
+  Future<MovieTable?> getById(int id) async {
     final result = await databaseHelper.getMovieById(id);
     if (result != null) {
-      return DbTable.fromMap(result);
+      return MovieTable.fromMap(result);
     } else {
       return null;
     }
   }
 
   @override
-  Future<List<DbTable>> getWatchlist() async {
+  Future<List<MovieTable>> getWatchlist() async {
     final result = await databaseHelper.getWatchlistMovies();
-    return result.map((data) => DbTable.fromMap(data)).toList();
+    return result.map((data) => MovieTable.fromMap(data)).toList();
   }
 
   @override

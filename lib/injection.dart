@@ -39,12 +39,18 @@ import 'package:core/presentation/provider/watchlist_movie_notifier.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+import 'package:search/bloc/search_bloc.dart';
 import 'package:search/domain/usecases/search_movies.dart';
 import 'package:search/presentation/provider/movie_search_notifier.dart';
 
 final locator = GetIt.instance;
 
 void init() {
+  // bloc
+  locator.registerFactory(() => SearchBloc(
+        locator(),
+      ));
+
   // provider
   locator.registerFactory(
     () => MovieListNotifier(

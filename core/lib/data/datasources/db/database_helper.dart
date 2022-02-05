@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:core/utils/encrypt.dart';
+
 import '../../models/movie_table.dart';
 import '../../models/tv_table.dart';
+// import 'package:sqflite_sqlcipher/sqflite.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -15,9 +18,7 @@ class DatabaseHelper {
   static Database? _database;
 
   Future<Database?> get database async {
-    if (_database == null) {
-      _database = await _initDb();
-    }
+    _database ??= await _initDb();
     return _database;
   }
 
@@ -27,7 +28,12 @@ class DatabaseHelper {
     final path = await getDatabasesPath();
     final databasePath = '$path/ditonton.db';
 
-    var db = await openDatabase(databasePath, version: 1, onCreate: _onCreate);
+    var db = await openDatabase(
+      databasePath,
+      version: 1,
+      onCreate: _onCreate,
+      // password: encrypt('Ravi Habibi'),
+    );
     return db;
   }
 

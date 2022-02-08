@@ -292,11 +292,11 @@ class MockMovieLocalDataSource extends _i1.Mock
   }
 
   @override
-  _i7.Future<String> insertWatchlist(_i19.DbTable? movie) =>
+  _i7.Future<String> insertWatchlist(_i19.MovieTable? movie) =>
       (super.noSuchMethod(Invocation.method(#insertWatchlist, [movie]),
           returnValue: Future<String>.value('')) as _i7.Future<String>);
   @override
-  _i7.Future<String> removeWatchlist(_i19.DbTable? movie) =>
+  _i7.Future<String> removeWatchlist(_i19.MovieTable? movie) =>
       (super.noSuchMethod(Invocation.method(#removeWatchlist, [movie]),
           returnValue: Future<String>.value('')) as _i7.Future<String>);
   @override
@@ -308,14 +308,15 @@ class MockMovieLocalDataSource extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#removeWatchlistTv, [tv]),
           returnValue: Future<String>.value('')) as _i7.Future<String>);
   @override
-  _i7.Future<_i19.DbTable?> getById(int? id) => (super.noSuchMethod(
-      Invocation.method(#getById, [id]),
-      returnValue: Future<_i19.DbTable?>.value()) as _i7.Future<_i19.DbTable?>);
+  _i7.Future<_i19.MovieTable?> getById(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getById, [id]),
+              returnValue: Future<_i19.MovieTable?>.value())
+          as _i7.Future<_i19.MovieTable?>);
   @override
-  _i7.Future<List<_i19.DbTable>> getWatchlist() =>
-      (super.noSuchMethod(Invocation.method(#getWatchlist, []),
-              returnValue: Future<List<_i19.DbTable>>.value(<_i19.DbTable>[]))
-          as _i7.Future<List<_i19.DbTable>>);
+  _i7.Future<List<_i19.MovieTable>> getWatchlist() => (super.noSuchMethod(
+          Invocation.method(#getWatchlist, []),
+          returnValue: Future<List<_i19.MovieTable>>.value(<_i19.MovieTable>[]))
+      as _i7.Future<List<_i19.MovieTable>>);
   @override
   _i7.Future<List<_i20.TvTable>> getTvWatchlist() =>
       (super.noSuchMethod(Invocation.method(#getTvWatchlist, []),
@@ -337,11 +338,11 @@ class MockDatabaseHelper extends _i1.Mock implements _i21.DatabaseHelper {
               returnValue: Future<_i22.Database?>.value())
           as _i7.Future<_i22.Database?>);
   @override
-  _i7.Future<int> insertWatchlist(_i19.DbTable? movie) =>
+  _i7.Future<int> insertWatchlist(_i19.MovieTable? movie) =>
       (super.noSuchMethod(Invocation.method(#insertWatchlist, [movie]),
           returnValue: Future<int>.value(0)) as _i7.Future<int>);
   @override
-  _i7.Future<int> removeWatchlist(_i19.DbTable? movie) =>
+  _i7.Future<int> removeWatchlist(_i19.MovieTable? movie) =>
       (super.noSuchMethod(Invocation.method(#removeWatchlist, [movie]),
           returnValue: Future<int>.value(0)) as _i7.Future<int>);
   @override

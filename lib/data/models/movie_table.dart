@@ -2,14 +2,14 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:equatable/equatable.dart';
 
-class DbTable extends Equatable {
+class MovieTable extends Equatable {
   final int id;
   final String? title;
   final String? posterPath;
   final String? overview;
   final String? type;
 
-  DbTable({
+  MovieTable({
     required this.id,
     required this.title,
     required this.posterPath,
@@ -17,7 +17,7 @@ class DbTable extends Equatable {
     required this.type,
   });
 
-  factory DbTable.fromEntity(MovieDetail movie) => DbTable(
+  factory MovieTable.fromEntity(MovieDetail movie) => MovieTable(
         id: movie.id,
         title: movie.title,
         posterPath: movie.posterPath,
@@ -25,7 +25,7 @@ class DbTable extends Equatable {
         overview: movie.overview,
       );
 
-  factory DbTable.fromMap(Map<String, dynamic> map) => DbTable(
+  factory MovieTable.fromMap(Map<String, dynamic> map) => MovieTable(
         id: map['id'],
         title: map['title'],
         posterPath: map['posterPath'],

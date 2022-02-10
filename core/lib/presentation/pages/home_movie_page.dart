@@ -2,6 +2,7 @@ import 'package:about/about.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/presentation/bloc/now_playing/bloc/now_playing_bloc.dart';
 import 'package:core/presentation/bloc/popular/bloc/popular_bloc.dart';
+import 'package:core/presentation/bloc/top_rated/bloc/top_rated_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search/presentation/pages/search_page.dart';
 import '../../domain/entities/movie.dart';
@@ -26,21 +27,17 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => Provider.of<MovieListNotifier>(context, listen: false)
-          ..fetchNowPlayingMovies()
-          ..fetchPopularMovies()
-          ..fetchTopRatedMovies());
-    Future.microtask(
-      () => Provider.of<NowPlayingBloc>(context, listen: false).add(
-        FetchMovieNowPlaying(),
-      ),
-    );
-    Future.microtask(
-      () => Provider.of<PopularBloc>(context, listen: false).add(
-        FetchMoviePopular(),
-      ),
-    );
+    // Future.microtask(
+    //     () => Provider.of<MovieListNotifier>(context, listen: false)
+    //       ..fetchNowPlayingMovies()
+    //       ..fetchPopularMovies()
+    //       ..fetchTopRatedMovies());
+    Future.microtask(() => Provider.of<NowPlayingBloc>(context, listen: false)
+        .add(FetchMovieNowPlaying()));
+    Future.microtask(() => Provider.of<PopularBloc>(context, listen: false)
+        .add(FetchMoviePopular()));
+    Future.microtask(() => Provider.of<TopRatedBloc>(context, listen: false)
+        .add(FetchMovieTopRated()));
   }
 
   @override
@@ -81,14 +78,14 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               onTap: () {
                 Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
               },
-              leading: Icon(Icons.info_outline),
-              title: Text('About'),
+              leading: const Icon(Icons.info_outline),
+              title: const Text('About'),
             ),
           ],
         ),
       ),
       appBar: AppBar(
-        title: Text('Ditonton'),
+        title: const Text('Ditonton'),
         actions: [
           IconButton(
             onPressed: () {
@@ -145,16 +142,18 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                 onTap: () =>
                     Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
               ),
-              Consumer<MovieListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedMoviesState;
-                if (state == RequestState.Loading) {
-                  return Center(
+              BlocBuilder<TopRatedBloc, TopRatedState>(
+                  builder: (context, state) {
+                if (state is TopRatedLoading) {
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
-                  return MovieList(data.topRatedMovies);
+                } else if (state is MovieTopRatedHasData) {
+                  return MovieList(state.result);
+                } else if (state is TopRatedError) {
+                  return Center(child: Text(state.message));
                 } else {
-                  return Text('Failed');
+                  return const Center();
                 }
               }),
             ],

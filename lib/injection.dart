@@ -29,11 +29,10 @@ import 'package:core/presentation/bloc/movie_detail/bloc/movie_detail_bloc.dart'
 import 'package:core/presentation/bloc/now_playing/bloc/now_playing_bloc.dart';
 import 'package:core/presentation/bloc/popular/bloc/popular_bloc.dart';
 import 'package:core/presentation/bloc/recommendation/bloc/recommendation_bloc.dart';
+import 'package:core/presentation/bloc/top_rated/bloc/top_rated_bloc.dart';
 import 'package:core/presentation/bloc/watchlist/bloc/watchlist_bloc.dart';
-import 'package:core/presentation/provider/movie_detail_notifier.dart';
 import 'package:core/presentation/provider/movie_list_notifier.dart';
 import 'package:core/presentation/provider/on_the_air_tv_notifier.dart';
-import 'package:core/presentation/provider/popular_movies_notifier.dart';
 import 'package:core/presentation/provider/popular_tv_notifier.dart';
 import 'package:core/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:core/presentation/provider/top_rated_tv_notifier.dart';
@@ -84,6 +83,11 @@ void init() {
       getPopularMovies: locator(),
     ),
   );
+  locator.registerFactory(
+    () => TopRatedBloc(
+      getTopRatedMovies: locator(),
+    ),
+  );
 
   // provider
   locator.registerFactory(
@@ -113,11 +117,11 @@ void init() {
   //     locator(),
   //   ),
   // );
-  locator.registerFactory(
-    () => TopRatedMoviesNotifier(
-      getTopRatedMovies: locator(),
-    ),
-  );
+  // locator.registerFactory(
+  //   () => TopRatedMoviesNotifier(
+  //     getTopRatedMovies: locator(),
+  //   ),
+  // );
   locator.registerFactory(
     () => WatchlistMovieNotifier(
       getWatchlistMovies: locator(),

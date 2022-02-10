@@ -1,5 +1,4 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:core/domain/entities/movie.dart';
 import 'package:core/domain/usecases/get_now_playing_movies.dart';
 import 'package:core/presentation/bloc/now_playing/bloc/now_playing_bloc.dart';
 import 'package:core/utils/failure.dart';

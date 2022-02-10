@@ -8,7 +8,7 @@ import 'package:mockito/mockito.dart';
 import 'package:search/bloc/search_bloc.dart';
 import 'package:search/domain/usecases/search_movies.dart';
 
-import '../provider/movie_search_notifier_test.mocks.dart';
+import 'movie_search_bloc_test.mocks.dart';
 
 @GenerateMocks([SearchMovies])
 void main() {

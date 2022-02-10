@@ -1,5 +1,10 @@
 import 'package:about/about.dart';
 import 'package:core/core.dart';
+import 'package:core/presentation/bloc/movie_detail/bloc/movie_detail_bloc.dart';
+import 'package:core/presentation/bloc/now_playing/bloc/now_playing_bloc.dart';
+import 'package:core/presentation/bloc/popular/bloc/popular_bloc.dart';
+import 'package:core/presentation/bloc/recommendation/bloc/recommendation_bloc.dart';
+import 'package:core/presentation/bloc/watchlist/bloc/watchlist_bloc.dart';
 import 'package:core/presentation/pages/home_movie_page.dart';
 import 'package:core/presentation/pages/movie_detail_page.dart';
 import 'package:core/presentation/pages/on_the_air_page.dart';
@@ -11,7 +16,6 @@ import 'package:core/presentation/pages/tv_detail_page.dart';
 import 'package:core/presentation/pages/tv_page.dart';
 import 'package:core/presentation/pages/tv_search_page.dart';
 import 'package:core/presentation/pages/watchlist_movies_page.dart';
-import 'package:core/presentation/provider/movie_detail_notifier.dart';
 import 'package:core/presentation/provider/movie_list_notifier.dart';
 import 'package:core/presentation/provider/on_the_air_tv_notifier.dart';
 import 'package:core/presentation/provider/popular_movies_notifier.dart';
@@ -22,6 +26,7 @@ import 'package:core/presentation/provider/tv_detail_notifier.dart';
 import 'package:core/presentation/provider/tv_list_notifier.dart';
 import 'package:core/presentation/provider/tv_search_notifier.dart';
 import 'package:core/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,9 +34,10 @@ import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
 import 'package:search/bloc/search_bloc.dart';
 import 'package:search/presentation/pages/search_page.dart';
-import 'package:search/presentation/provider/movie_search_notifier.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   di.init();
   runApp(MyApp());
 }
@@ -44,18 +50,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<MovieListNotifier>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieSearchNotifier>(),
-        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => di.locator<MovieDetailNotifier>(),
+        // ),
+        // ChangeNotifierProvider(
+        //   create: (_) => di.locator<MovieSearchNotifier>(),
+        // ),
         ChangeNotifierProvider(
           create: (_) => di.locator<TopRatedMoviesNotifier>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularMoviesNotifier>(),
-        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => di.locator<PopularMoviesNotifier>(),
+        // ),
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistMovieNotifier>(),
         ),
@@ -79,16 +85,30 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<SearchBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<MovieDetailBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<RecommendationBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<WatchlistBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<NowPlayingBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<PopularBloc>(),
         )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData.dark().copyWith(
-          colorScheme: kColorScheme,
           primaryColor: kRichBlack,
-          accentColor: kMikadoYellow,
           scaffoldBackgroundColor: kRichBlack,
           textTheme: kTextTheme,
+          colorScheme: kColorScheme.copyWith(secondary: kMikadoYellow),
         ),
         home: HomeMoviePage(),
         navigatorObservers: [routeObserver],

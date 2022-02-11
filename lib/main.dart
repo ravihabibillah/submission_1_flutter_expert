@@ -17,9 +17,6 @@ import 'package:core/presentation/pages/tv_detail_page.dart';
 import 'package:core/presentation/pages/tv_page.dart';
 import 'package:core/presentation/pages/tv_search_page.dart';
 import 'package:core/presentation/pages/watchlist_movies_page.dart';
-import 'package:core/presentation/provider/on_the_air_tv_notifier.dart';
-import 'package:core/presentation/provider/popular_tv_notifier.dart';
-import 'package:core/presentation/provider/top_rated_tv_notifier.dart';
 import 'package:core/presentation/provider/tv_detail_notifier.dart';
 import 'package:core/presentation/provider/tv_list_notifier.dart';
 import 'package:core/presentation/provider/tv_search_notifier.dart';
@@ -69,15 +66,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<TvDetailNotifier>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTvNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<OnTheAirTvNotifier>(),
-        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => di.locator<PopularTvNotifier>(),
+        // ),
+        // ChangeNotifierProvider(
+        //   create: (_) => di.locator<TopRatedTvNotifier>(),
+        // ),
+        // ChangeNotifierProvider(
+        //   create: (_) => di.locator<OnTheAirTvNotifier>(),
+        // ),
         ChangeNotifierProvider(
           create: (_) => di.locator<TvSearchNotifier>(),
         ),

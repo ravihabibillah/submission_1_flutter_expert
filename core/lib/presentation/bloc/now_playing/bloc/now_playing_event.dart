@@ -8,9 +8,6 @@ abstract class NowPlayingEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchMovieNowPlaying extends NowPlayingEvent {
-  FetchMovieNowPlaying();
+class FetchMovieNowPlaying extends NowPlayingEvent {}
 
-  @override
-  List<Object> get props => [];
-}
+class FetchTvOnTheAir extends NowPlayingEvent {}

@@ -135,7 +135,7 @@ final testWatchlistTv = Tv.watchlist(
 final tMovie = Movie(
   adult: false,
   backdropPath: 'backdropPath',
-  genreIds: [1, 2, 3],
+  genreIds: const [1, 2, 3],
   id: 1,
   originalTitle: 'originalTitle',
   overview: 'overview',
@@ -148,3 +148,20 @@ final tMovie = Movie(
   voteCount: 1,
 );
 final tMovieList = <Movie>[tMovie];
+
+final tTv = Tv(
+  posterPath: 'posterPath',
+  popularity: 1,
+  id: 1,
+  backdropPath: 'backdropPath',
+  voteAverage: 1,
+  overview: 'overview',
+  originCountry: const ['en'],
+  genreIds: const [1, 2, 3],
+  originalLanguage: 'originalLanguage',
+  voteCount: 1,
+  name: 'name',
+  originalName: 'originalName',
+);
+
+final tTvList = <Tv>[tTv];

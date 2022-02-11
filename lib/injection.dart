@@ -76,16 +76,19 @@ void init() {
   locator.registerFactory(
     () => NowPlayingBloc(
       getNowPlayingMovies: locator(),
+      getOnTheAirTv: locator(),
     ),
   );
   locator.registerFactory(
     () => PopularBloc(
       getPopularMovies: locator(),
+      getPopularTv: locator(),
     ),
   );
   locator.registerFactory(
     () => TopRatedBloc(
       getTopRatedMovies: locator(),
+      getTopRatedTv: locator(),
     ),
   );
 
@@ -144,19 +147,19 @@ void init() {
       removeWatchlist: locator(),
     ),
   );
-  locator.registerFactory(
-    () => PopularTvNotifier(
-      getPopularTv: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TopRatedTvNotifier(
-      getTopRatedTv: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => OnTheAirTvNotifier(getOnTheAirTv: locator()),
-  );
+  // locator.registerFactory(
+  //   () => PopularTvNotifier(
+  //     getPopularTv: locator(),
+  //   ),
+  // );
+  // locator.registerFactory(
+  //   () => TopRatedTvNotifier(
+  //     getTopRatedTv: locator(),
+  //   ),
+  // );
+  // locator.registerFactory(
+  //   () => OnTheAirTvNotifier(getOnTheAirTv: locator()),
+  // );
   locator.registerFactory(
     () => TvSearchNotifier(
       searchTv: locator(),

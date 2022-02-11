@@ -11,7 +11,6 @@ import '../pages/top_rated_movies_page.dart';
 import '../pages/watchlist_movies_page.dart';
 import '../../core.dart';
 import '../pages/tv_page.dart';
-import '../provider/movie_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,11 +26,6 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   void initState() {
     super.initState();
-    // Future.microtask(
-    //     () => Provider.of<MovieListNotifier>(context, listen: false)
-    //       ..fetchNowPlayingMovies()
-    //       ..fetchPopularMovies()
-    //       ..fetchTopRatedMovies());
     Future.microtask(() => Provider.of<NowPlayingBloc>(context, listen: false)
         .add(FetchMovieNowPlaying()));
     Future.microtask(() => Provider.of<PopularBloc>(context, listen: false)
@@ -91,7 +85,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
             onPressed: () {
               Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           )
         ],
       ),
@@ -176,7 +170,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: [Text('See More'), Icon(Icons.arrow_forward_ios)],
+              children: const [
+                Text('See More'),
+                Icon(Icons.arrow_forward_ios),
+              ],
             ),
           ),
         ),
@@ -188,11 +185,11 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
 class MovieList extends StatelessWidget {
   final List<Movie> movies;
 
-  MovieList(this.movies);
+  const MovieList(this.movies, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -209,13 +206,13 @@ class MovieList extends StatelessWidget {
                 );
               },
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderRadius: BorderRadius.all(const Radius.circular(16)),
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
-                  placeholder: (context, url) => Center(
+                  placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),

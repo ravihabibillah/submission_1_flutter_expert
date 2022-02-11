@@ -2,12 +2,15 @@
 // in core/test/presentation/bloc/movie_top_rated_bloc_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
 
-import 'package:core/domain/entities/movie.dart' as _i7;
+import 'package:core/domain/entities/movie.dart' as _i8;
+import 'package:core/domain/entities/tv.dart' as _i10;
 import 'package:core/domain/repositories/movie_repository.dart' as _i2;
-import 'package:core/domain/usecases/get_top_rated_movies.dart' as _i4;
-import 'package:core/utils/failure.dart' as _i6;
+import 'package:core/domain/repositories/tv_repository.dart' as _i4;
+import 'package:core/domain/usecases/get_top_rated_movies.dart' as _i5;
+import 'package:core/domain/usecases/get_top_rated_tv.dart' as _i9;
+import 'package:core/utils/failure.dart' as _i7;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -24,10 +27,12 @@ class _FakeMovieRepository_0 extends _i1.Fake implements _i2.MovieRepository {}
 
 class _FakeEither_1<L, R> extends _i1.Fake implements _i3.Either<L, R> {}
 
+class _FakeTvRepository_2 extends _i1.Fake implements _i4.TvRepository {}
+
 /// A class which mocks [GetTopRatedMovies].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetTopRatedMovies extends _i1.Mock implements _i4.GetTopRatedMovies {
+class MockGetTopRatedMovies extends _i1.Mock implements _i5.GetTopRatedMovies {
   MockGetTopRatedMovies() {
     _i1.throwOnMissingStub(this);
   }
@@ -37,9 +42,29 @@ class MockGetTopRatedMovies extends _i1.Mock implements _i4.GetTopRatedMovies {
       (super.noSuchMethod(Invocation.getter(#repository),
           returnValue: _FakeMovieRepository_0()) as _i2.MovieRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Movie>>> execute() =>
+  _i6.Future<_i3.Either<_i7.Failure, List<_i8.Movie>>> execute() =>
       (super.noSuchMethod(Invocation.method(#execute, []),
-          returnValue: Future<_i3.Either<_i6.Failure, List<_i7.Movie>>>.value(
-              _FakeEither_1<_i6.Failure, List<_i7.Movie>>())) as _i5
-          .Future<_i3.Either<_i6.Failure, List<_i7.Movie>>>);
+          returnValue: Future<_i3.Either<_i7.Failure, List<_i8.Movie>>>.value(
+              _FakeEither_1<_i7.Failure, List<_i8.Movie>>())) as _i6
+          .Future<_i3.Either<_i7.Failure, List<_i8.Movie>>>);
+}
+
+/// A class which mocks [GetTopRatedTv].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetTopRatedTv extends _i1.Mock implements _i9.GetTopRatedTv {
+  MockGetTopRatedTv() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.TvRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+          returnValue: _FakeTvRepository_2()) as _i4.TvRepository);
+  @override
+  _i6.Future<_i3.Either<_i7.Failure, List<_i10.Tv>>> execute() =>
+      (super.noSuchMethod(Invocation.method(#execute, []),
+              returnValue: Future<_i3.Either<_i7.Failure, List<_i10.Tv>>>.value(
+                  _FakeEither_1<_i7.Failure, List<_i10.Tv>>()))
+          as _i6.Future<_i3.Either<_i7.Failure, List<_i10.Tv>>>);
 }

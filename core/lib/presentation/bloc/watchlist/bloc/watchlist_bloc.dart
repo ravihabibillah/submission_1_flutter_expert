@@ -45,7 +45,6 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
       final movie = event.movie;
 
       final result = await removeWatchlist.execute(movie);
-      print(result);
       result.fold(
         (failure) => emit(WatchlistFailure(failure.message)),
         (successMessage) => emit(WatchlistSuccess('Removed from Watchlist')),

@@ -1,13 +1,10 @@
 import 'package:core/presentation/widgets/movie_card_list.dart';
 import 'package:core/styles/text_styles.dart';
-import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:search/bloc/search_bloc.dart';
-import 'package:search/presentation/provider/movie_search_notifier.dart';
 
-class SearchPage extends StatelessWidget {
+class MovieSearchPage extends StatelessWidget {
   static const ROUTE_NAME = '/search';
 
   @override
@@ -27,7 +24,7 @@ class SearchPage extends StatelessWidget {
               //       .fetchMovieSearch(query);
               // },
               onChanged: (query) {
-                context.read<SearchBloc>().add(OnQueryChanged(query));
+                context.read<SearchBloc>().add(OnMovieQueryChanged(query));
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
@@ -47,7 +44,7 @@ class SearchPage extends StatelessWidget {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state is SearchHasData) {
+                } else if (state is SearchMovieHasData) {
                   final result = state.result;
                   return Expanded(
                     child: ListView.builder(

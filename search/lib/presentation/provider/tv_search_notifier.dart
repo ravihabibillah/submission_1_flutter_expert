@@ -1,5 +1,5 @@
 import 'package:core/domain/entities/tv.dart';
-import 'package:core/domain/usecases/search_tv.dart';
+import 'package:search/domain/usecases/search_tv.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
 

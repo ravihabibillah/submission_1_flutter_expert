@@ -11,7 +11,16 @@ abstract class RecommendationEvent extends Equatable {
 class FetchMovieRecommendation extends RecommendationEvent {
   final int id;
 
-  FetchMovieRecommendation(this.id);
+  const FetchMovieRecommendation(this.id);
+
+  @override
+  List<Object> get props => [id];
+}
+
+class FetchTvRecommendation extends RecommendationEvent {
+  final int id;
+
+  const FetchTvRecommendation(this.id);
 
   @override
   List<Object> get props => [id];

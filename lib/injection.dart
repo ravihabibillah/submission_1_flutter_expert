@@ -24,15 +24,15 @@ import 'package:core/domain/usecases/remove_watchlist.dart';
 import 'package:core/domain/usecases/remove_watchlist_tv.dart';
 import 'package:core/domain/usecases/save_watchlist.dart';
 import 'package:core/domain/usecases/save_watchlist_tv.dart';
-import 'package:core/presentation/bloc/movie_detail/bloc/movie_detail_bloc.dart';
+import 'package:core/presentation/bloc/detail/bloc/detail_bloc.dart';
 import 'package:core/presentation/bloc/now_playing/bloc/now_playing_bloc.dart';
 import 'package:core/presentation/bloc/popular/bloc/popular_bloc.dart';
 import 'package:core/presentation/bloc/recommendation/bloc/recommendation_bloc.dart';
 import 'package:core/presentation/bloc/top_rated/bloc/top_rated_bloc.dart';
 import 'package:core/presentation/bloc/watchlist/bloc/watchlist_bloc.dart';
-import 'package:core/presentation/provider/movie_list_notifier.dart';
-import 'package:core/presentation/provider/tv_detail_notifier.dart';
-import 'package:core/presentation/provider/tv_list_notifier.dart';
+import 'package:core/presentation/bloc/watchlist/movie_watchlist/bloc/movie_watchlist_bloc.dart';
+import 'package:core/presentation/bloc/watchlist/tv_watchlist/bloc/tv_watchlist_bloc.dart';
+
 import 'package:core/presentation/provider/watchlist_movie_notifier.dart';
 
 import 'package:http/http.dart' as http;
@@ -52,13 +52,15 @@ void init() {
     ),
   );
   locator.registerFactory(
-    () => MovieDetailBloc(
-      locator(),
+    () => DetailBloc(
+      getMovieDetail: locator(),
+      getTvDetail: locator(),
     ),
   );
   locator.registerFactory(
     () => RecommendationBloc(
-      locator(),
+      getMovieRecommendations: locator(),
+      getTvRecommendations: locator(),
     ),
   );
   locator.registerFactory(
@@ -66,6 +68,8 @@ void init() {
       getWatchListStatus: locator(),
       saveWatchlist: locator(),
       removeWatchlist: locator(),
+      removeWatchlistTv: locator(),
+      saveWatchlistTv: locator(),
     ),
   );
   locator.registerFactory(
@@ -86,15 +90,21 @@ void init() {
       getTopRatedTv: locator(),
     ),
   );
+  locator.registerFactory(
+    () => MovieWatchlistBloc(locator()),
+  );
+  locator.registerFactory(
+    () => TvWatchlistBloc(locator()),
+  );
 
   // provider
-  locator.registerFactory(
-    () => MovieListNotifier(
-      getNowPlayingMovies: locator(),
-      getPopularMovies: locator(),
-      getTopRatedMovies: locator(),
-    ),
-  );
+  // locator.registerFactory(
+  //   () => MovieListNotifier(
+  //     getNowPlayingMovies: locator(),
+  //     getPopularMovies: locator(),
+  //     getTopRatedMovies: locator(),
+  //   ),
+  // );
   // locator.registerFactory(
   //   () => MovieDetailNotifier(
   //     getMovieDetail: locator(),
@@ -120,28 +130,28 @@ void init() {
   //     getTopRatedMovies: locator(),
   //   ),
   // );
-  locator.registerFactory(
-    () => WatchlistMovieNotifier(
-      getWatchlistMovies: locator(),
-      getWatchlistTv: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvListNotifier(
-      getOnTheAirTv: locator(),
-      getPopularTv: locator(),
-      getTopRatedTv: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvDetailNotifier(
-      getTvDetail: locator(),
-      getTvRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
-    ),
-  );
+  // locator.registerFactory(
+  //   () => WatchlistMovieNotifier(
+  //     getWatchlistMovies: locator(),
+  //     getWatchlistTv: locator(),
+  //   ),
+  // );
+  // locator.registerFactory(
+  //   () => TvListNotifier(
+  //     getOnTheAirTv: locator(),
+  //     getPopularTv: locator(),
+  //     getTopRatedTv: locator(),
+  //   ),
+  // );
+  // locator.registerFactory(
+  //   () => TvDetailNotifier(
+  //     getTvDetail: locator(),
+  //     getTvRecommendations: locator(),
+  //     getWatchListStatus: locator(),
+  //     saveWatchlist: locator(),
+  //     removeWatchlist: locator(),
+  //   ),
+  // );
   // locator.registerFactory(
   //   () => PopularTvNotifier(
   //     getPopularTv: locator(),

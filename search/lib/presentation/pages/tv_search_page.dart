@@ -1,12 +1,9 @@
 import 'package:core/presentation/widgets/tv_card_list.dart';
 import 'package:core/styles/text_styles.dart';
-import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 import '../../bloc/search_bloc.dart';
-import '../provider/tv_search_notifier.dart';
 
 class TvSearchPage extends StatelessWidget {
   static const ROUTE_NAME = '/search-tv';
@@ -15,7 +12,7 @@ class TvSearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Tv Series'),
+        title: const Text('Search Tv Series'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -23,7 +20,7 @@ class TvSearchPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
+              onChanged: (query) {
                 context.read<SearchBloc>().add(OnTvQueryChanged(query));
               },
               decoration: const InputDecoration(

@@ -1,5 +1,7 @@
 part of 'watchlist_bloc.dart';
 
+// enum StateEnum { empty, loading, hasData, error }
+
 @immutable
 abstract class WatchlistState extends Equatable {
   const WatchlistState();
@@ -21,7 +23,7 @@ class WatchlistInitial extends WatchlistState {
 class WatchlistFailure extends WatchlistState {
   final String message;
 
-  WatchlistFailure(this.message);
+  const WatchlistFailure(this.message);
 
   @override
   List<Object> get props => [message];
@@ -30,7 +32,7 @@ class WatchlistFailure extends WatchlistState {
 class WatchlistSuccess extends WatchlistState {
   final String message;
 
-  WatchlistSuccess(this.message);
+  const WatchlistSuccess(this.message);
 
   @override
   List<Object> get props => [message];
@@ -39,7 +41,7 @@ class WatchlistSuccess extends WatchlistState {
 class WatchlistHasData extends WatchlistState {
   final bool isAdded;
 
-  WatchlistHasData(this.isAdded);
+  const WatchlistHasData(this.isAdded);
 
   @override
   List<Object> get props => [isAdded];

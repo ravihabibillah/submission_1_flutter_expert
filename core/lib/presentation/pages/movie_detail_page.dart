@@ -1,15 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:core/presentation/bloc/movie_detail/bloc/movie_detail_bloc.dart';
+import 'package:core/presentation/bloc/detail/bloc/detail_bloc.dart';
 import 'package:core/presentation/bloc/recommendation/bloc/recommendation_bloc.dart';
 import 'package:core/presentation/bloc/watchlist/bloc/watchlist_bloc.dart';
 import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/genre.dart';
-import '../../domain/entities/movie.dart';
 import '../../domain/entities/movie_detail.dart';
-import '../provider/movie_detail_notifier.dart';
-import '../../utils/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +26,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<MovieDetailBloc>(context, listen: false)
+      Provider.of<DetailBloc>(context, listen: false)
           .add(FetchMovieDetail(widget.id));
       Provider.of<WatchlistBloc>(context, listen: false)
           .add(LoadWatchlistStatus(widget.id));
@@ -41,13 +38,13 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
+      body: BlocBuilder<DetailBloc, DetailState>(
         builder: (context, state) {
           if (state is DetailLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is DetailHasData) {
+          } else if (state is MovieDetailHasData) {
             final movie = state.result;
             return SafeArea(
               child: DetailContent(movie),
@@ -109,21 +106,6 @@ class DetailContent extends StatelessWidget {
                               movie.title,
                               style: kHeading5,
                             ),
-                            // BlocListener(listener: (_, state) {
-                            //   if (state is WatchlistSuccess) {
-                            //     ScaffoldMessenger.of(context).showSnackBar(
-                            //         SnackBar(content: Text(state.message)));
-                            //   } else if (state is WatchlistFailure) {
-                            //     showDialog(
-                            //       context: context,
-                            //       builder: (context) {
-                            //         return AlertDialog(
-                            //           content: Text(state.message),
-                            //         );
-                            //       },
-                            //     );
-                            //   }
-                            // }),
                             BlocConsumer<WatchlistBloc, WatchlistState>(
                               listener: (context, state) {
                                 if (state is WatchlistSuccess) {
@@ -147,41 +129,23 @@ class DetailContent extends StatelessWidget {
                                       if (state.isAdded == false) {
                                         context
                                             .read<WatchlistBloc>()
-                                            .add(AddWatchlist(movie));
+                                            .add(AddMovieWatchlist(movie));
                                       } else if (state.isAdded == true) {
                                         context
                                             .read<WatchlistBloc>()
-                                            .add(DeleteWatchlist(movie));
+                                            .add(DeleteMovieWatchlist(movie));
                                       }
                                     }
-
-                                    // if (!isAddedWatchlist) {
-                                    //   await Provider.of<MovieDetailNotifier>(
-                                    //           context,
-                                    //           listen: false)
-                                    //       .addWatchlist(movie);
-                                    // } else {
-                                    //   await Provider.of<MovieDetailNotifier>(
-                                    //           context,
-                                    //           listen: false)
-                                    //       .removeFromWatchlist(movie);
-                                    // }
-
-                                    // final message =
-                                    //     Provider.of<WatchlistBloc>(
-                                    //             context,
-                                    //             listen: false)
-                                    //         .add(event);
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       if (state is WatchlistHasData)
                                         if (state.isAdded == false)
-                                          Icon(Icons.add)
+                                          const Icon(Icons.add)
                                         else if (state.isAdded == true)
-                                          Icon(Icons.check),
-                                      Text('Watchlist'),
+                                          const Icon(Icons.check),
+                                      const Text('Watchlist'),
                                     ],
                                   ),
                                 );
@@ -198,7 +162,7 @@ class DetailContent extends StatelessWidget {
                                 RatingBarIndicator(
                                   rating: movie.voteAverage / 2,
                                   itemCount: 5,
-                                  itemBuilder: (context, index) => Icon(
+                                  itemBuilder: (context, index) => const Icon(
                                     Icons.star,
                                     color: kMikadoYellow,
                                   ),
@@ -207,7 +171,7 @@ class DetailContent extends StatelessWidget {
                                 Text('${movie.voteAverage}')
                               ],
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Overview',
                               style: kHeading6,
@@ -215,7 +179,7 @@ class DetailContent extends StatelessWidget {
                             Text(
                               movie.overview,
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Recommendations',
                               style: kHeading6,
@@ -224,14 +188,14 @@ class DetailContent extends StatelessWidget {
                                 RecommendationState>(
                               builder: (context, state) {
                                 if (state is RecommendationLoading) {
-                                  return Center(
+                                  return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else if (state is RecommendationError) {
                                   return Text(state.message);
                                 } else if (state
                                     is MovieRecommendationHasData) {
-                                  return Container(
+                                  return SizedBox(
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
@@ -248,20 +212,21 @@ class DetailContent extends StatelessWidget {
                                               );
                                             },
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
+                                              borderRadius:
+                                                  const BorderRadius.all(
                                                 Radius.circular(8),
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
                                                     'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                                 placeholder: (context, url) =>
-                                                    Center(
+                                                    const Center(
                                                   child:
                                                       CircularProgressIndicator(),
                                                 ),
                                                 errorWidget:
                                                     (context, url, error) =>
-                                                        Icon(Icons.error),
+                                                        const Icon(Icons.error),
                                               ),
                                             ),
                                           ),
@@ -302,7 +267,7 @@ class DetailContent extends StatelessWidget {
             backgroundColor: kRichBlack,
             foregroundColor: Colors.white,
             child: IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);
               },

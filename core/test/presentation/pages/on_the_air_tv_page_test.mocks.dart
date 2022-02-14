@@ -2,13 +2,13 @@
 // in core/test/presentation/pages/on_the_air_tv_page_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i6;
-import 'dart:ui' as _i7;
+import 'dart:async' as _i5;
 
-import 'package:core/domain/entities/tv.dart' as _i5;
-import 'package:core/domain/usecases/get_on_the_air_tv.dart' as _i2;
-import 'package:core/presentation/provider/on_the_air_tv_notifier.dart' as _i3;
-import 'package:core/utils/state_enum.dart' as _i4;
+import 'package:bloc/bloc.dart' as _i6;
+import 'package:core/domain/usecases/get_now_playing_movies.dart' as _i2;
+import 'package:core/domain/usecases/get_on_the_air_tv.dart' as _i3;
+import 'package:core/presentation/bloc/now_playing/bloc/now_playing_bloc.dart'
+    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -20,54 +20,81 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeGetOnTheAirTv_0 extends _i1.Fake implements _i2.GetOnTheAirTv {}
+class _FakeGetNowPlayingMovies_0 extends _i1.Fake
+    implements _i2.GetNowPlayingMovies {}
 
-/// A class which mocks [OnTheAirTvNotifier].
+class _FakeGetOnTheAirTv_1 extends _i1.Fake implements _i3.GetOnTheAirTv {}
+
+class _FakeNowPlayingState_2 extends _i1.Fake implements _i4.NowPlayingState {}
+
+/// A class which mocks [NowPlayingBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockOnTheAirTvNotifier extends _i1.Mock
-    implements _i3.OnTheAirTvNotifier {
-  MockOnTheAirTvNotifier() {
+class MockNowPlayingBloc extends _i1.Mock implements _i4.NowPlayingBloc {
+  MockNowPlayingBloc() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.GetOnTheAirTv get getOnTheAirTv =>
+  _i2.GetNowPlayingMovies get getNowPlayingMovies => (super.noSuchMethod(
+      Invocation.getter(#getNowPlayingMovies),
+      returnValue: _FakeGetNowPlayingMovies_0()) as _i2.GetNowPlayingMovies);
+  @override
+  _i3.GetOnTheAirTv get getOnTheAirTv =>
       (super.noSuchMethod(Invocation.getter(#getOnTheAirTv),
-          returnValue: _FakeGetOnTheAirTv_0()) as _i2.GetOnTheAirTv);
+          returnValue: _FakeGetOnTheAirTv_1()) as _i3.GetOnTheAirTv);
   @override
-  _i4.RequestState get state => (super.noSuchMethod(Invocation.getter(#state),
-      returnValue: _i4.RequestState.Empty) as _i4.RequestState);
+  _i4.NowPlayingState get state =>
+      (super.noSuchMethod(Invocation.getter(#state),
+          returnValue: _FakeNowPlayingState_2()) as _i4.NowPlayingState);
   @override
-  List<_i5.Tv> get tvs =>
-      (super.noSuchMethod(Invocation.getter(#tvs), returnValue: <_i5.Tv>[])
-          as List<_i5.Tv>);
+  _i5.Stream<_i4.NowPlayingState> get stream =>
+      (super.noSuchMethod(Invocation.getter(#stream),
+              returnValue: Stream<_i4.NowPlayingState>.empty())
+          as _i5.Stream<_i4.NowPlayingState>);
   @override
-  String get message =>
-      (super.noSuchMethod(Invocation.getter(#message), returnValue: '')
-          as String);
-  @override
-  bool get hasListeners =>
-      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
+  bool get isClosed =>
+      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
           as bool);
   @override
-  _i6.Future<void> fetchOnTheAirTv() =>
-      (super.noSuchMethod(Invocation.method(#fetchOnTheAirTv, []),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i6.Future<void>);
-  @override
-  void addListener(_i7.VoidCallback? listener) =>
-      super.noSuchMethod(Invocation.method(#addListener, [listener]),
+  void add(_i4.NowPlayingEvent? event) =>
+      super.noSuchMethod(Invocation.method(#add, [event]),
           returnValueForMissingStub: null);
   @override
-  void removeListener(_i7.VoidCallback? listener) =>
-      super.noSuchMethod(Invocation.method(#removeListener, [listener]),
+  void onEvent(_i4.NowPlayingEvent? event) =>
+      super.noSuchMethod(Invocation.method(#onEvent, [event]),
           returnValueForMissingStub: null);
   @override
-  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
-      returnValueForMissingStub: null);
+  void emit(_i4.NowPlayingState? state) =>
+      super.noSuchMethod(Invocation.method(#emit, [state]),
+          returnValueForMissingStub: null);
   @override
-  void notifyListeners() =>
-      super.noSuchMethod(Invocation.method(#notifyListeners, []),
+  void on<E extends _i4.NowPlayingEvent>(
+          _i6.EventHandler<E, _i4.NowPlayingState>? handler,
+          {_i6.EventTransformer<E>? transformer}) =>
+      super.noSuchMethod(
+          Invocation.method(#on, [handler], {#transformer: transformer}),
+          returnValueForMissingStub: null);
+  @override
+  void onTransition(
+          _i6.Transition<_i4.NowPlayingEvent, _i4.NowPlayingState>?
+              transition) =>
+      super.noSuchMethod(Invocation.method(#onTransition, [transition]),
+          returnValueForMissingStub: null);
+  @override
+  _i5.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+  @override
+  void onChange(_i6.Change<_i4.NowPlayingState>? change) =>
+      super.noSuchMethod(Invocation.method(#onChange, [change]),
+          returnValueForMissingStub: null);
+  @override
+  void addError(Object? error, [StackTrace? stackTrace]) =>
+      super.noSuchMethod(Invocation.method(#addError, [error, stackTrace]),
+          returnValueForMissingStub: null);
+  @override
+  void onError(Object? error, StackTrace? stackTrace) =>
+      super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]),
           returnValueForMissingStub: null);
 }

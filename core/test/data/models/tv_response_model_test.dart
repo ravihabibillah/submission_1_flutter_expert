@@ -13,8 +13,8 @@ void main() {
     backdropPath: '/path.jpg',
     voteAverage: 1.0,
     overview: 'overview',
-    originCountry: ['US'],
-    genreIds: [1, 2, 3, 4],
+    originCountry: const ['US'],
+    genreIds: const [1, 2, 3, 4],
     originalLanguage: 'en',
     voteCount: 1,
     name: 'name',
@@ -27,7 +27,7 @@ void main() {
     test('should return a valid model from JSON', () async {
       // arrange
       final Map<String, dynamic> jsonMap =
-          json.decode(readJson('dummy_data/on_the_air.json'));
+          json.decode(readJson('/dummy_data/on_the_air.json'));
       // act
       final result = TvResponse.fromJson(jsonMap);
       // assert

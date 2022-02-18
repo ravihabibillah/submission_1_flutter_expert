@@ -33,7 +33,7 @@ void main() {
       when(mockDatabaseHelper.insertWatchlist(testMovieTable))
           .thenThrow(Exception());
       // act
-      final call = dataSource.insertWatchlist(testMovieTable);
+      final call = await dataSource.insertWatchlist(testMovieTable);
       // assert
       expect(() => call, throwsA(isA<DatabaseException>()));
     });

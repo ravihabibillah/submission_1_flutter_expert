@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   equatable: ^2.0.3
   google_fonts: ^2.1.0
-  # sqflite: ^2.0.0+3
-  sqflite_sqlcipher: ^2.1.0
+  sqflite: ^2.0.0+3
+  # sqflite_sqlcipher: ^2.1.0
   http: ^0.13.3
   dartz: ^0.10.0-nullsafety.2
   provider: ^6.0.2
@@ -34,7 +34,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   mockito: ^5.0.8
   build_runner: ^2.0.4
-  bloc_test: ^9.0.0
+  bloc_test: ^9.0.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

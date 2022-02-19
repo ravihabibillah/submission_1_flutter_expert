@@ -37,7 +37,7 @@ dependencies:
     path: search
   # firebase_core: ^1.12.0
   # firebase_crashlytics: ^2.5.0
-  flutter_bloc: ^8.0.1
+  # flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:

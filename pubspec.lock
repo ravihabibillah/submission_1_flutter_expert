@@ -163,7 +163,7 @@ packages:
     source: hosted
     version: "6.1.2"
   firebase_core:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
@@ -184,7 +184,7 @@ packages:
     source: hosted
     version: "1.5.4"
   firebase_crashlytics:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: firebase_crashlytics
       url: "https://pub.dartlang.org"

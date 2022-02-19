@@ -1,8 +1,7 @@
 import 'package:core/data/datasources/movie_local_data_source.dart';
+import 'package:core/utils/exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:sqflite/sqflite.dart';
-
 import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
@@ -33,7 +32,7 @@ void main() {
       when(mockDatabaseHelper.insertWatchlist(testMovieTable))
           .thenThrow(Exception());
       // act
-      final call = await dataSource.insertWatchlist(testMovieTable);
+      final call = dataSource.insertWatchlist(testMovieTable);
       // assert
       expect(() => call, throwsA(isA<DatabaseException>()));
     });
